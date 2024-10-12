@@ -3,62 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torneio de Poker</title>
+    <title>Título do Torneio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+    
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="menu-icon">☰</div>
-            <h1 id="titulo">TÍTULO DO TORNEIO #001</h1>
-        </header>
-        <div class="main-content">
-            <div class="timer">
-                <h2 id="time">15:00</h2>
+        <div class="main"> 
+            <h1 class="title">TÍTULO DO TORNEIO #001</h1>
+            <div class="timer">55:15:00</div>
+            <div class="level">Nível 6</div>
+            <div class="blinds">500000/1000000</div>
+            <div class="ante">Ante: 1000000</div>
+            
+            <!-- Proximo Nível e Controles lado a lado -->
+            <div class="linha">
+                <div class="proximo-nivel">
+                    <div class="next-level">Próximo Nível</div>
+                    <div class="next-blinds">500000/1000000</div>
+                    <div class="next-ante">Ante: 1000000</div>
+                </div>
+                <div class="controles">
+                    <button id="voltar"><i class="fas fa-backward"></i></button>
+                    <button id="pausar"><i class="fas fa-pause"></i></button>
+                    <button id="reiniciar"><i class="fas fa-redo"></i></button>
+                    <button id="avancar"><i class="fas fa-forward"></i></button>
+                </div>
             </div>
-            <div class="level-info">
-                <h3 id="nivel">Nível 6</h3>
-                <h3 id="blinds">500000/1000000</h3>
-                <p id="proximo-nivel">Próximo Nível: 500000/1000000</p>
-            </div>
+        </div>        
+        <div class="sidebar">
+            <div class="info-item">Nível <br />1</div>
+            <div class="info-item">Reg Tardio <br />9</div>
+            <div class="info-item">Jogadores / Entradas<br>6 / 6</div>
+            <div class="info-item">Rebuys / Duplos<br>18 / 5</div>
+            <div class="info-item">Add-ons <br />9</div>
+            <div class="info-item prize-pool">Prize pool: R$100.000,00</div>
+        <!-- Lista de prêmios com rolagem automática -->
+        <div class="prize-list-container">
+            <ul class="prize-list">
+                <li>1º R$ 5.000,00</li>
+                <li>2º R$ 2.500,00</li>
+                <li>3º R$ 1.000,00</li>
+                <li>4º R$ 500,00</li>
+                <li>5º R$ 400,00</li>
+                <li>6º R$ 300,00</li>
+                <li>7º R$ 200,00</li>
+                <li>8º R$ 150,00</li>
+                <li>9º R$ 100,00</li>                   
+                
+                <!-- Adicione mais itens se necessário -->
+            </ul>
         </div>
-        <aside>
-            <div class="info-box">
-                <h3>Nível</h3>
-                <p>1</p>
-            </div>
-            <div class="info-box">
-                <h3>Reg Tardio</h3>
-                <p>9</p>
-            </div>
-            <div class="info-box">
-                <h3>Jogadores / Entradas</h3>
-                <p>6 / 6</p>
-            </div>
-            <div class="info-box">
-                <h3>Rebuys / Duplos</h3>
-                <p>18 / 5</p>
-            </div>
-            <div class="info-box">
-                <h3>Add-ons</h3>
-                <p>9</p>
-            </div>
-            <div class="prize-box">
-                <h4>Prize pool: R$100.000,00</h4>
-                <ul>
-                    <li>1º R$ 5.000,00</li>
-                    <li>2º R$ 2.500,00</li>
-                    <li>3º R$ 1.000,00</li>
-                    <li>4º R$ 500,00</li>
-                    <li>5º R$ 400,00</li>
-                    <li>6º R$ 300,00</li>
-                    <li>7º R$ 200,00</li>
-                    <li>8º R$ 150,00</li>
-                    <li>9º R$ 100,00</li>
-                    <li>10º R$ 50,00</li>
-                </ul>
-            </div>
-        </aside>
+        </div>
     </div>
+    <footer>
+        <p>Controlador de Torneios de Poker por elielduarte</p>
+    </footer>
+    
+    <script>
+        // Verifica o número de elementos da lista de prêmios
+        const prizeList = document.querySelector('.prize-list');
+        const prizeItems = prizeList.querySelectorAll('li');
+
+        // Se a lista tiver mais de 10 itens, adiciona a classe 'scroll'
+        if (prizeItems.length > 10) {
+            prizeList.classList.add('scroll');
+        }
+    </script>    
 </body>
 </html>

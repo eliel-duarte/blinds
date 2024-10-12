@@ -4,103 +4,183 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #009EDB;
-    color: white;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    height: 100vh;
-}
-
-header {
-    position: absolute;
-    top: 10px;
-    left: 20px;
-}
-
-header h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.main-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 65%;
-}
-
-.timer {
-    font-size: 8rem;
-    font-weight: bold;
-}
-
-.level-info {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.level-info h3 {
-    font-size: 2rem;
-}
-
-.level-info p {
-    font-size: 1.5rem;
-}
-
-aside {
-    width: 30%;
-    background-color: #005BB5;
-    padding: 20px;
-    border-radius: 10px;
+html, body {
     height: 100%;
 }
 
-.info-box, .prize-box {
-    margin-bottom: 15px;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #00aaff;
+    color: white;
+    display: flex;
+    flex-direction: column;
 }
 
-.info-box h3, .prize-box h4 {
-    font-size: 1.5rem;
-    margin-bottom: 5px;
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
 }
 
-.info-box p {
-    font-size: 2rem;
-    background-color: #009EDB;
+.main {
+    flex: 3;
+    text-align: center;
+    border: 3px solid white;
+}
+
+.title {
+    font-size: 2.5rem;
     padding: 10px;
-    border-radius: 5px;
+    border-bottom: 2px solid white;
 }
 
-.prize-box h4 {
+.timer {
+    font-size: 15rem;
+    font-weight: bold;
+    padding: 0 10px;   
+}
+
+.level {
     font-size: 1.5rem;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    font-size: 5rem;
 }
 
-.prize-box ul {
+.blinds{
+    font-size: 10rem;
+    margin-top: 10px;
+    padding: 10px;         
+}
+
+.ante{
+    font-size: 5rem;
+    border-bottom: 2px solid white; 
+}
+/* Estilos para o container */
+.linha {
+    display: flex;
+    justify-content: space-between; /* Distribui o espaço entre os elementos */
+    margin-top: 20px; /* Espaço superior */
+}
+
+/* Proximo-nivel e Controles ajustados */
+.proximo-nivel, .controles {
+    display: flex;
+    flex-direction: column; /* Mantém os elementos internos empilhados verticalmente */    
+}
+
+.controles {
+    flex-direction: row;       
+    width: 65%;
+}
+
+/* Estilo para os botões */
+.controles button {
+    padding: 10px 20px;
+    margin: 5px 0; /* Espaço entre os botões */
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.controles button i:hover {
+    background-color: #0077aa;
+}
+
+/* Ajusta o tamanho dos ícones */
+.controles i {
+    border: 1px solid white;
+    font-size: 1.5rem;
+    padding: 20px;
+    margin: 0 10px;
+}
+
+.next-level, .next-blinds, .next-ante {
+    font-size: 1.5rem;
+    margin-top: 5px;
+    padding-left: 10rem;
+}
+
+.sidebar {
+    font-size: 1.4rem;
+    flex: 0.7;    background-color: #0099cc;
+    
+    text-align: center;
+    border: 3px solid white;
+    border-left: 0;
+}
+
+
+.info-item {
+    margin: 20px 0;
+    
+}
+
+.prize-pool {    
+    margin-top: 20px;
+    padding: 10px;
+    font-weight: bold;
+    text-align: left;
+    border-top: 1px solid white;
+}
+
+.prize-list p {
+    font-size: 1.5rem;
+    margin: 10px;
+    text-align: left;
+}
+
+/* Container da lista de prêmios */
+.prize-list-container {
+    max-height: 450px; /* Limita a altura visível */
+    overflow: hidden;  /* Esconde o conteúdo que ultrapassa essa altura */
+    margin: 0 auto;
+    width: 300px; /* Largura do container da lista */
+    position: relative;
+}
+
+/* Itens da lista */
+.prize-list {
     list-style: none;
     padding: 0;
-    font-size: 1.2rem;
+    margin: 0;
 }
 
-.prize-box ul li {
-    margin-bottom: 5px;
+/* Apenas se a lista tiver mais de 10 itens, a animação é ativada */
+.prize-list.scroll {
+    animation: scroll 30s linear infinite;
 }
 
-.menu-icon {
-    font-size: 2rem;
+/* Estilo dos itens da lista */
+.prize-list li {
+    padding: 10px;
+    text-align: left;    
+}
+
+/* Animação para rolar a lista de prêmios */
+@keyframes scroll {
+    0% {
+        transform: translateY(50%); /* Começa abaixo do container */
+    }
+    100% {
+        transform: translateY(-100%); /* Vai até sair completamente acima do container */
+    }
+}
+
+/* Rodapé fixo */
+footer {
+    background-color: #0099cc;
     color: white;
-    position: absolute;
-    left: 20px;
-    top: 20px;
+    border: 3px solid white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 1rem;
 }
