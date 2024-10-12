@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Título do Torneio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">    
 
     
 </head>
@@ -13,28 +13,28 @@
     <div class="container">
         <div class="main"> 
             <h1 class="title">TÍTULO DO TORNEIO #001</h1>
-            <div class="timer">55:15:00</div>
-            <div class="level">Nível 6</div>
-            <div class="blinds">500000/1000000</div>
-            <div class="ante">Ante: 1000000</div>
+            <div class="timer">00:00:00</div>
+            <div class="level">Nível 1</div>
+            <div class="blinds">100/200</div>
+            <div class="ante">Ante: 200</div>
             
             <!-- Proximo Nível e Controles lado a lado -->
             <div class="linha">
                 <div class="proximo-nivel">
                     <div class="next-level">Próximo Nível</div>
-                    <div class="next-blinds">500000/1000000</div>
+                    <div class="next-blinds">200/400</div>
                     <div class="next-ante">Ante: 1000000</div>
                 </div>
                 <div class="controles">
                     <button id="voltar"><i class="fas fa-backward"></i></button>
-                    <button id="pausar"><i class="fas fa-pause"></i></button>
+                    <button id="pausar"><i class="fas fa-play"></i></button>
                     <button id="reiniciar"><i class="fas fa-redo"></i></button>
                     <button id="avancar"><i class="fas fa-forward"></i></button>
                 </div>
             </div>
         </div>        
         <div class="sidebar">
-            <div class="info-item">Nível <br />1</div>
+            <div class="info-item">Nível <br /><div id="nivel">1</div></div>
             <div class="info-item">Reg Tardio <br />9</div>
             <div class="info-item">Jogadores / Entradas<br>6 / 6</div>
             <div class="info-item">Rebuys / Duplos<br>18 / 5</div>
@@ -71,6 +71,7 @@
         if (prizeItems.length > 10) {
             prizeList.classList.add('scroll');
         }
-    </script>    
+    </script>  
+    <script src="script.js"></script>  
 </body>
 </html>

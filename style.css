@@ -72,11 +72,12 @@ body {
 
 .controles {
     flex-direction: row;       
-    width: 65%;
+    width: 60%;
 }
 
 /* Estilo para os botões */
 .controles button {
+    width: 100px;
     padding: 10px 20px;
     margin: 5px 0; /* Espaço entre os botões */
     background-color: #00aaff;
@@ -94,7 +95,7 @@ body {
 
 /* Ajusta o tamanho dos ícones */
 .controles i {
-    border: 1px solid white;
+    width: 70px;    
     font-size: 1.5rem;
     padding: 20px;
     margin: 0 10px;
@@ -126,7 +127,7 @@ body {
     padding: 10px;
     font-weight: bold;
     text-align: left;
-    border-top: 1px solid white;
+    border-top: 3px solid white;
 }
 
 .prize-list p {
