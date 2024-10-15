@@ -42,13 +42,14 @@ body {
 }
 
 .level {
-    font-size: 1.5rem;
+    font-size: 1.5rem;    
     margin-top: 20px;
     font-size: 5rem;
 }
 
 .blinds{
     font-size: 10rem;
+    font-weight: bold;
     margin-top: 10px;
     padding: 10px;         
 }
@@ -107,7 +108,7 @@ body {
     padding-left: 10rem;
 }
 
-.sidebar {
+.sidebar-direita {
     font-size: 1.4rem;
     flex: 0.7;    background-color: #0099cc;
     
@@ -185,3 +186,106 @@ footer {
     width: 100%;
     font-size: 1rem;
 }
+
+/* Ícone de menu hamburguer */
+.menu-icon {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* Barra lateral (menu) */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    z-index: 1;
+    color: white;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 36px;
+}
+
+/* Formulário na barra lateral */
+.sidebar form {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar form label {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.sidebar form input, .sidebar form button {
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+}
+
+.sidebar form input {
+    width: 100%;
+}
+
+.sidebar form button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar form button:hover {
+    background-color: #45a049;
+}
+
+/* Quando a barra lateral está ativa (aberta) */
+.sidebar.active {
+    width: 30%;
+}
+
+select {
+    width: 100%; /* Faz a lista suspensa ocupar toda a largura do contêiner */
+    padding: 10px; /* Ajusta o preenchimento interno para tornar o campo maior */
+    font-size: 16px; /* Aumenta o tamanho do texto para melhorar a legibilidade */
+    border: 1px solid #ccc; /* Adiciona uma borda mais visível */
+    border-radius: 5px; /* Arredonda os cantos */
+    box-sizing: border-box; /* Garante que o padding e a borda estejam dentro da largura definida */
+}
+
+input[type="text"] {
+    width: 100px; /* Definir a largura para suportar o formato HH:MM:SS */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+

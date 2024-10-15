@@ -10,9 +10,43 @@
     
 </head>
 <body>
+
+    <!-- Ícone de menu hamburguer -->
+    <div class="menu-icon" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Barra lateral colapsável -->
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="toggleMenu()">&times;</a>
+        <h2>Configurações do Torneio</h2>
+        <form>
+            <label for="tournament-name">Nome do Torneio:</label>
+            <input type="text" id="tournament-name" name="tournament-name" placeholder="Nome do Torneio">
+
+            <label for="blind-time-pre">Tempo de Blinds Pré add-on:</label>
+            <input type="text" id="blind-time-pre" name="blind-time-pre" value="00:20:00" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" placeholder="HH:MM:SS">
+            
+            <label for="blind-time-pos">Tempo de Blinds Pós add-on:</label>
+            <input type="text" id="blind-time-pos" name="blind-time-pos" value="00:20:00" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" placeholder="HH:MM:SS">
+            
+
+            <label for="starting-blinds">Blinds:</label>
+            <select id="tipo-blinds" name="starting-blinds">
+                <option value="WSOP">Padrão</option>
+                <option value="EPT">WSOP</option>
+            </select>
+
+            <label for="ante">Ante Inicial:</label>
+            <input type="text" id="ante" name="ante" value="200">
+
+            <button type="button" onclick="saveSettings()">Salvar Configurações</button>
+        </form>
+    </div>
+
     <div class="container">
         <div class="main"> 
-            <h1 class="title">TÍTULO DO TORNEIO #001</h1>
+            <h1 class="title">Nome do Torneio</h1>
             <div class="timer">00:00:00</div>
             <div class="level">Nível 1</div>
             <div class="blinds">100/200</div>
@@ -33,7 +67,7 @@
                 </div>
             </div>
         </div>        
-        <div class="sidebar">
+        <div class="sidebar-direita">
             <div class="info-item">Nível <br /><div id="nivel">1</div></div>
             <div class="info-item">Reg Tardio <br />9</div>
             <div class="info-item">Jogadores / Entradas<br>6 / 6</div>
@@ -49,6 +83,9 @@
                 <li>4º R$ 500,00</li>
                 <li>5º R$ 400,00</li>
                 <li>6º R$ 300,00</li>
+                <li>7º R$ 200,00</li>
+                <li>8º R$ 150,00</li>
+                <li>9º R$ 100,00</li>                 <li>6º R$ 300,00</li>
                 <li>7º R$ 200,00</li>
                 <li>8º R$ 150,00</li>
                 <li>9º R$ 100,00</li>                   

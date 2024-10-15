@@ -3,35 +3,32 @@ const sound1m = new Audio('falta_1m.mp3');
 const sound5s = new Audio('falta_5s.mp3');
 const soundMudarBlind = new Audio('mudar_blind.mp3');
 
-// Dados de blinds e ante para cada nível
-const blindsLevels = [
-    { blinds: "100/200", ante: 200 },
-    { blinds: "200/400", ante: 200 },
-    { blinds: "300/600", ante: 300 },
-    { blinds: "400/800", ante: 400 },
-    { blinds: "500/1000", ante: 500 },
-    { blinds: "600/1200", ante: 600 },
-    { blinds: "800/1600", ante: 800 },
-    { blinds: "1000/2000", ante: 1000 },
-    { blinds: "1200/2400", ante: 1200 },
-    { blinds: "1500/3000", ante: 1500 },
-    { blinds: "2000/4000", ante: 2000 },
-    { blinds: "2500/5000", ante: 2500 },
-    { blinds: "3000/6000", ante: 3000 },
-    { blinds: "4000/8000", ante: 4000 },
-    { blinds: "5000/10000", ante: 5000 },
-    { blinds: "6000/12000", ante: 6000 },
-    { blinds: "8000/16000", ante: 8000 },
-    { blinds: "10000/20000", ante: 10000 },
-    { blinds: "12000/24000", ante: 12000 },
-    { blinds: "15000/30000", ante: 15000 },
-    { blinds: "20000/40000", ante: 20000 },
-    { blinds: "25000/50000", ante: 25000 },
-    { blinds: "30000/60000", ante: 30000 },
-    { blinds: "40000/80000", ante: 40000 },
-    { blinds: "50000/100000", ante: 50000 },
-    { blinds: "60000/120000", ante: 60000 },
-];
+let blindsLevels = []; // Variável para armazenar os blinds
+
+// Função para carregar blinds a partir de um arquivo JSON
+async function loadBlinds() {
+    try {
+        const response = await fetch('blindsLevels.json'); // Caminho para o arquivo JSON
+        blindsLevels = await response.json(); // Armazena os dados na variável
+
+        // Recupera o nível e o tempo restantes do localStorage
+        if (localStorage.getItem('currentLevel')) {
+            currentLevel = parseInt(localStorage.getItem('currentLevel'), 10);
+        }
+
+        if (localStorage.getItem('timeLeft')) {
+            timeLeft = parseInt(localStorage.getItem('timeLeft'), 10);
+        }
+
+        console.log(blindsLevels); // Verifica os dados carregados
+        updateDisplays(); // Atualiza a interface com os dados recuperados
+    } catch (error) {
+        console.error('Erro ao carregar os blinds:', error);
+    }
+}
+
+// Chama a função para carregar os blinds ao iniciar o script
+loadBlinds();
 
 let currentLevel = 0;
 let timerInterval;
@@ -181,3 +178,42 @@ if (isPaused) {
     pauseButtonIcon.classList.add('fa-pause');
     startTimer(); // Inicia o timer se não estiver pausado
 }
+
+// Função para abrir e fechar o menu lateral
+function toggleMenu() {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+    } else {
+        sidebar.classList.add('active');
+    }
+}
+
+// Função de salvar as configurações
+function saveSettings() {
+    const tournamentName = document.getElementById('tournament-name').value;
+    const blindTime = document.getElementById('blind-time').value;
+    const startingBlinds = document.getElementById('starting-blinds').value;
+    const ante = document.getElementById('ante').value;
+
+    // Exemplo: salvar no localStorage (pode adaptar para outras funcionalidades)
+    localStorage.setItem('tournamentName', tournamentName);
+    localStorage.setItem('blindTime', blindTime);
+    localStorage.setItem('startingBlinds', startingBlinds);
+    localStorage.setItem('ante', ante);
+
+    // Exibir uma mensagem ou fazer qualquer ação após salvar
+    alert('Configurações salvas com sucesso!');
+}
+
+document.querySelectorAll('input[type="text"]').forEach(function(input) {
+    input.addEventListener('input', function() {
+        if (!this.value.match(/[0-9]{2}:[0-9]{2}:[0-9]{2}/)) {
+            this.setCustomValidity('Por favor, insira o tempo no formato HH:MM:SS');
+        } else {
+            this.setCustomValidity('');
+        }
+    });
+});
+
+
