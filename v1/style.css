@@ -1,0 +1,438 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #00aaff;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+h2, h3{
+    text-align: center;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+}
+
+.main {
+    flex: 3;
+    text-align: center;
+    border: 3px solid white;
+}
+
+.title {
+    font-size: 2.5rem;
+    padding: 10px;
+    border-bottom: 2px solid white;
+}
+
+.timer {
+    font-size: 15rem;
+    font-weight: bold;
+    padding: 0 10px;   
+}
+
+.level {
+    font-size: 1.5rem;    
+    margin-top: 20px;
+    font-size: 5rem;
+}
+
+.blinds{
+    font-size: 10rem;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px;         
+}
+
+.ante{
+    font-size: 5rem;
+    border-bottom: 2px solid white; 
+}
+/* Estilos para o container */
+.linha {
+    display: flex;
+    justify-content: space-between; /* Distribui o espaço entre os elementos */
+    margin-top: 20px; /* Espaço superior */
+}
+
+/* Proximo-nivel e Controles ajustados */
+.proximo-nivel, .controles {
+    display: flex;
+    flex-direction: column; /* Mantém os elementos internos empilhados verticalmente */    
+}
+
+.controles {
+    flex-direction: row;       
+    width: 60%;
+}
+
+/* Estilo para os botões */
+.controles button {
+    width: 100px;
+    padding: 10px 20px;
+    margin: 5px 0; /* Espaço entre os botões */
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.controles button i:hover {
+    background-color: #0077aa;
+}
+
+/* Ajusta o tamanho dos ícones */
+.controles i {
+    width: 70px;    
+    font-size: 1.5rem;
+    padding: 20px;
+    margin: 0 10px;
+}
+
+.next-level, .next-blinds, .next-ante {
+    font-size: 1.5rem;
+    margin-top: 5px;
+    padding-left: 10rem;
+}
+
+.sidebar-direita {
+    font-size: 1.4rem;
+    flex: 0.7;    
+    background-color: #0099cc;    
+    text-align: center;
+    border: 3px solid white;
+    border-left: 0;
+}
+
+
+.info-item {
+    margin: 20px 0;
+    
+}
+
+.prize-pool {    
+    margin-top: 20px;
+    padding: 10px;
+    font-weight: bold;
+    text-align: left;
+    border-top: 3px solid white;
+}
+
+.prize-list p {
+    font-size: 1.5rem;
+    margin: 10px;
+    text-align: left;
+}
+
+/* Container da lista de prêmios */
+.prize-list-container {
+    max-height: 450px; /* Limita a altura visível */
+    overflow: hidden;  /* Esconde o conteúdo que ultrapassa essa altura */
+    margin: 0 auto;
+    width: 300px; /* Largura do container da lista */
+    position: relative;
+}
+
+/* Itens da lista */
+.prize-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Apenas se a lista tiver mais de 10 itens, a animação é ativada */
+.prize-list.scroll {
+    animation: scroll 30s linear infinite;
+}
+
+/* Estilo dos itens da lista */
+.prize-list li {
+    padding: 10px;
+    text-align: left;    
+}
+
+/* Animação para rolar a lista de prêmios */
+@keyframes scroll {
+    0% {
+        transform: translateY(75%); /* Começa abaixo do container */
+    }
+    100% {
+        transform: translateY(-100%); /* Vai até sair completamente acima do container */
+    }
+}
+
+/* Rodapé fixo */
+footer {
+    background-color: #0099cc;
+    color: white;
+    border: 3px solid white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 1rem;
+}
+
+/* Ícone de menu hamburguer */
+.menu-icon {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* Barra lateral (menu) */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    z-index: 1;
+    color: white;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 36px;
+}
+
+/* Formulário na barra lateral */
+.sidebar form {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar form label {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.sidebar form input, .sidebar form button {
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+}
+
+.sidebar form input {
+    width: 100%;
+}
+
+/* Quando a barra lateral está ativa (aberta) */
+.sidebar.active {
+    width: 30%;
+}
+
+select {
+    width: 100%; /* Faz a lista suspensa ocupar toda a largura do contêiner */
+    padding: 10px; /* Ajusta o preenchimento interno para tornar o campo maior */
+    font-size: 16px; /* Aumenta o tamanho do texto para melhorar a legibilidade */
+    border: 1px solid #ccc; /* Adiciona uma borda mais visível */
+    border-radius: 5px; /* Arredonda os cantos */
+    box-sizing: border-box; /* Garante que o padding e a borda estejam dentro da largura definida */
+}
+
+input[type="text"] {
+    width: 100px; /* Definir a largura para suportar o formato HH:MM:SS */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.dialog {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Certifique-se de que esteja acima de outros conteúdos */
+}
+
+.dialog-content {
+    background-color: white;
+    color: red;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.dialog-content p{
+    padding: 10px;
+}
+
+
+        /* Estilização do modal (popup) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%; /* Definindo a largura do modal */
+            height: 80%; /* Limita a altura a 80% da tela */            
+            position: relative;
+        }
+
+        .blinds-list{
+            overflow-y: auto; /* Adiciona barra de rolagem se necessário */
+            width: 100%; /* Definindo a largura do modal */
+            height: 90%; /* Limita a altura a 80% da tela */             
+            position: relative;
+            border: 1px solid white;
+        }
+
+        /* Botão "X" para fechar o modal */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;  /* Aumenta o tamanho da fonte para torná-lo mais visível */
+            font-weight: bold;  /* Negrito para destacar */
+            color: #000;  /* Cor preta para o "X" */
+            cursor: pointer;  /* Adiciona um ponteiro de cursor ao passar o mouse */
+        }
+
+        .close:hover {
+            color: red;  /* Altera a cor do "X" para vermelho ao passar o mouse */
+        }
+
+
+        /* Estilização da tabela de blinds */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            color: black;
+        }
+        
+        /* Estilização dos botões Salvar e Cancelar */
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        
+        .botao-azul {
+            background-color:rgb(66, 133, 244) ;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .botao-azul:hover {
+            background-color:#6cace4 ;
+        }
+        
+        .botao-verde {
+            background-color:rgb(52, 168, 83) ;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .botao-verde:hover {
+            background-color: #5BBE5A ;        
+        }
+
+        .botao-amarelo {
+            background-color:rgb(251, 188, 5) ;
+            color: black; /* Para contraste */
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .botao-amarelo:hover {
+            background-color: #F3E30B ;        
+        }
+
+        .botao-vermelho {
+            background-color:rgb(234, 67, 53) ;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .botao-vermelho:hover {
+            background-color: #FF3C30 ;        
+        }
+

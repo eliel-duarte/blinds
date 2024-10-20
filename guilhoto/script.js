@@ -1,7 +1,7 @@
         // Previne o menu de contexto padrão e exibe uma mensagem
         window.addEventListener('contextmenu', function (e) {
-            //e.preventDefault(); // Evita que o menu de contexto apareça
-            //alert(' bad beat! isso não é permitido :('); // Exibe a mensagem personalizada
+            e.preventDefault(); // Evita que o menu de contexto apareça
+            alert(' bad beat! isso não é permitido :('); // Exibe a mensagem personalizada
         });
 
 // Adicione os caminhos dos arquivos de som
@@ -52,6 +52,8 @@ const soundMudarBlind = new Audio('mudar_blind.mp3');
         
         // carrega os blinds padrão
         loadBlindsLevels();
+
+        AtualizaBuyns();//
         
 
 let currentLevel = 0;
@@ -212,7 +214,8 @@ function updateTimerDisplay() {
     // Atualiza nome
     document.querySelector('.title').textContent = localStorage.getItem('tournamentName');
     // Atualiza Registro tardio
-    document.querySelector('.info-tardio').textContent = localStorage.getItem('tardio');
+    document.querySelector('.info-tardio').textContent = localStorage.getItem('tardio');    
+
     // Atualiza Cores
     AtualizaCores();
 
@@ -299,6 +302,14 @@ function saveSettings() {
             // Reseta o nível para -1 e avança para o primeiro nível
             currentLevel = -1;
             nextLevel();
+
+            // Zera todas as variaveis de controle do torneio
+            localStorage.setItem('buyn', 0);
+            localStorage.setItem('rebuy', 0);
+            localStorage.setItem('duplo', 0);
+            localStorage.setItem('addon', 0);
+            localStorage.setItem('prizeList', "");
+            localStorage.setItem('premio', 0);           
 
             // pausa se não tiver pausado
             if (!isPaused) {
@@ -436,15 +447,84 @@ function secondsToHHMMSS(seconds) {
             closeBlindsPopup(); // Fecha o popup após salvar
         }
 
-        function adicionaBuyn(){
-            localStorage.setItem('buyn', localStorage.getItem('buyn'));
-        }           
+        function Buyn(x){
+            // se ja existe buyn no localstorage
+            if (localStorage.getItem('buyn')) {
+                var buyn = localStorage.getItem('buyn');
+            }else{
+                var buyn = 0;
+            }     
+            
+            // atribui
+            buyn = parseInt(buyn) + x;            
+            
+            // salva no localstorage
+            localStorage.setItem('buyn', buyn);
+
+            AtualizaBuyns();
+        }          
+
+        function Rebuy(x){
+            // se ja existe buyn no localstorage
+            if (localStorage.getItem('rebuy')) {
+                var rebuy = localStorage.getItem('rebuy');
+            }else{
+                var rebuy = 0;
+            }     
+            
+            // atribui
+            rebuy = parseInt(rebuy) + x;            
+            
+            // salva no localstorage
+            localStorage.setItem('rebuy', rebuy);
+
+            AtualizaBuyns();
+        } 
+
+        function Duplo(x){
+            // se ja existe buyn no localstorage
+            if (localStorage.getItem('duplo')) {
+                var duplo = localStorage.getItem('duplo');
+            }else{
+                var duplo = 0;
+            }     
+            
+            // atribui
+            duplo = parseInt(duplo) + x;            
+            
+            // salva no localstorage
+            localStorage.setItem('duplo', duplo);
+
+            AtualizaBuyns();
+        }      
+        
+        function Addon(x){
+            // se ja existe buyn no localstorage
+            if (localStorage.getItem('addon')) {
+                var addon = localStorage.getItem('addon');
+            }else{
+                var addon = 0;
+            }     
+            
+            // atribui
+            addon = parseInt(addon) + x;           
+            
+            // salva no localstorage
+            localStorage.setItem('addon', addon);
+
+            AtualizaBuyns();
+        }   
+        
+        function AtualizaBuyns(){
+            document.getElementById('entradas').innerHTML = localStorage.getItem('buyn');
+            document.getElementById('rebuys').innerHTML = localStorage.getItem('rebuy');
+            document.getElementById('duplos').innerHTML = localStorage.getItem('duplo');
+            document.getElementById('addons').innerHTML = localStorage.getItem('addon');
+        }
            
 
         prizeList = [
-            { posicao: "1º", valor: "R$ 5.000,00" },
-            { posicao: "2º", valor: "R$ 2.500,00" },
-            { posicao: "3º", valor: "R$ 1.000,00" }
+            { posicao: "1º", valor: "R$ 00,00" }
         ];
                 
         // Função para abrir o modal de edição de prêmios
@@ -551,7 +631,7 @@ function secondsToHHMMSS(seconds) {
         // Carregar prêmios ao iniciar
         window.onload = function() {
             loadPrizes(); // Carrega os prêmios do localStorage ou da lista padrão
-            checkPrizeListLength(); // Verifica o comprimento da lista de prêmios e aplica/remova a classe 'scroll'
+            checkPrizeListLength(); // Verifica o comprimento da lista de prêmios e aplica/remova a classe 'scroll'            
         };
 
 
