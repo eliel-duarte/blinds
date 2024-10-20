@@ -1,7 +1,7 @@
         // Previne o menu de contexto padrão e exibe uma mensagem
         window.addEventListener('contextmenu', function (e) {
-            e.preventDefault(); // Evita que o menu de contexto apareça
-            alert(' bad beat! isso não é permitido :('); // Exibe a mensagem personalizada
+            //e.preventDefault(); // Evita que o menu de contexto apareça
+            //alert(' bad beat! isso não é permitido :('); // Exibe a mensagem personalizada
         });
 
 // Adicione os caminhos dos arquivos de som
@@ -19,21 +19,47 @@ const soundMudarBlind = new Audio('mudar_blind.mp3');
         // Função para carregar os dados do arquivo JSON
         async function loadBlindsLevels() {
             try {
-                const response = await fetch('blind-padrao.json'); // Caminho para o arquivo JSON
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                blindsLevels = await response.json(); // Converte a resposta em JSON
-
+                // Defina os níveis de blinds diretamente como um array de objetos
+                blindsLevels = [
+                    { "nivel": "1", "sb": 100, "bb": 200, "ante": 200 },
+                    { "nivel": "2", "sb": 200, "bb": 400, "ante": 400 },
+                    { "nivel": "3", "sb": 300, "bb": 600, "ante": 600 },
+                    { "nivel": "4", "sb": 400, "bb": 800, "ante": 800 },
+                    { "nivel": "5", "sb": 500, "bb": 1000, "ante": 1000 },
+                    { "nivel": "6", "sb": 600, "bb": 1200, "ante": 1200 },
+                    { "nivel": "7", "sb": 800, "bb": 1600, "ante": 1600 },
+                    { "nivel": "7", "sb": "Add-on ", "bb": " Intervalo", "ante": 0 },
+                    { "nivel": "8", "sb": 1000, "bb": 2000, "ante": 2000 },
+                    { "nivel": "9", "sb": 1200, "bb": 2400, "ante": 2400 },
+                    { "nivel": "10", "sb": 1500, "bb": 3000, "ante": 3000 },
+                    { "nivel": "11", "sb": 2000, "bb": 4000, "ante": 4000 },
+                    { "nivel": "12", "sb": 2500, "bb": 5000, "ante": 5000 },
+                    { "nivel": "13", "sb": 3000, "bb": 6000, "ante": 6000 },
+                    { "nivel": "14", "sb": 4000, "bb": 8000, "ante": 8000 },
+                    { "nivel": "15", "sb": 5000, "bb": 10000, "ante": 10000 },
+                    { "nivel": "16", "sb": 6000, "bb": 12000, "ante": 12000 },
+                    { "nivel": "17", "sb": 8000, "bb": 16000, "ante": 16000 },
+                    { "nivel": "18", "sb": 10000, "bb": 20000, "ante": 20000 },
+                    { "nivel": "19", "sb": 12000, "bb": 24000, "ante": 24000 },
+                    { "nivel": "20", "sb": 15000, "bb": 30000, "ante": 30000 },
+                    { "nivel": "21", "sb": 20000, "bb": 40000, "ante": 40000 },
+                    { "nivel": "22", "sb": 25000, "bb": 50000, "ante": 50000 },
+                    { "nivel": "23", "sb": 30000, "bb": 60000, "ante": 60000 },
+                    { "nivel": "24", "sb": 40000, "bb": 80000, "ante": 80000 },
+                    { "nivel": "25", "sb": 50000, "bb": 100000, "ante": 100000 },
+                    { "nivel": "26", "sb": 60000, "bb": 120000, "ante": 120000 }
+                    // Continue a adicionar mais níveis conforme necessário...
+                ];
+        
+                // Carrega níveis de blinds do localStorage, se existir
                 if (localStorage.getItem('blindsLevels')) {
                     blindsLevels = JSON.parse(localStorage.getItem('blindsLevels'));
                 }
-
+        
                 // Atualiza a exibição inicial
                 updateTimerDisplay(); // Exibe o tempo inicial
                 updateDisplays(); // Exibe o nível, blinds e ante iniciais
-
-
+        
                 // Atualiza o estado do botão de pausar
                 if (isPaused) {
                     pauseButtonIcon.classList.remove('fa-pause');
@@ -42,12 +68,14 @@ const soundMudarBlind = new Audio('mudar_blind.mp3');
                     pauseButtonIcon.classList.remove('fa-play');
                     pauseButtonIcon.classList.add('fa-pause');
                     startTimer(); // Inicia o timer se não estiver pausado
-                }                
-
+                }
+        
             } catch (error) {
                 console.error('Erro ao carregar os níveis de blinds:', error);
             }
-        }        
+        }
+        
+               
 
         
         // carrega os blinds padrão
@@ -365,15 +393,51 @@ function secondsToHHMMSS(seconds) {
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
 
-        // Carrega o arquivo JSON ao carregar a página
-        async function loadBlinds() {
-            try {
-                const response = await fetch('blind-padrao.json');
-                blindsLevels = await response.json(); // Armazena o conteúdo no array
-            } catch (error) {
-                console.error('Erro ao carregar o arquivo JSON:', error);
-            }
-        }
+// Carrega os níveis de blinds ao carregar a página, sem usar um arquivo JSON
+async function loadBlinds() {
+    try {
+        // Defina os níveis de blinds diretamente como um array de objetos
+        blindsLevels = [
+            { "nivel": "1", "sb": 100, "bb": 200, "ante": 200 },
+            { "nivel": "2", "sb": 200, "bb": 400, "ante": 400 },
+            { "nivel": "3", "sb": 300, "bb": 600, "ante": 600 },
+            { "nivel": "4", "sb": 400, "bb": 800, "ante": 800 },
+            { "nivel": "5", "sb": 500, "bb": 1000, "ante": 1000 },
+            { "nivel": "6", "sb": 600, "bb": 1200, "ante": 1200 },
+            { "nivel": "7", "sb": 800, "bb": 1600, "ante": 1600 },
+            { "nivel": "7", "sb": "Add-on ", "bb": " Intervalo", "ante": 0 },
+            { "nivel": "8", "sb": 1000, "bb": 2000, "ante": 2000 },
+            { "nivel": "9", "sb": 1200, "bb": 2400, "ante": 2400 },
+            { "nivel": "10", "sb": 1500, "bb": 3000, "ante": 3000 },
+            { "nivel": "11", "sb": 2000, "bb": 4000, "ante": 4000 },
+            { "nivel": "12", "sb": 2500, "bb": 5000, "ante": 5000 },
+            { "nivel": "13", "sb": 3000, "bb": 6000, "ante": 6000 },
+            { "nivel": "14", "sb": 4000, "bb": 8000, "ante": 8000 },
+            { "nivel": "15", "sb": 5000, "bb": 10000, "ante": 10000 },
+            { "nivel": "16", "sb": 6000, "bb": 12000, "ante": 12000 },
+            { "nivel": "17", "sb": 8000, "bb": 16000, "ante": 16000 },
+            { "nivel": "18", "sb": 10000, "bb": 20000, "ante": 20000 },
+            { "nivel": "19", "sb": 12000, "bb": 24000, "ante": 24000 },
+            { "nivel": "20", "sb": 15000, "bb": 30000, "ante": 30000 },
+            { "nivel": "21", "sb": 20000, "bb": 40000, "ante": 40000 },
+            { "nivel": "22", "sb": 25000, "bb": 50000, "ante": 50000 },
+            { "nivel": "23", "sb": 30000, "bb": 60000, "ante": 60000 },
+            { "nivel": "24", "sb": 40000, "bb": 80000, "ante": 80000 },
+            { "nivel": "25", "sb": 50000, "bb": 100000, "ante": 100000 },
+            { "nivel": "26", "sb": 60000, "bb": 120000, "ante": 120000 }
+            // Continue a adicionar mais níveis conforme necessário...
+        ];
+
+        console.log('Níveis de blinds carregados com sucesso');
+        
+        // Você pode adicionar mais ações após carregar os blinds, como atualizar a interface
+        updateTimerDisplay(); // Atualiza a exibição do tempo
+        updateDisplays();     // Atualiza os valores de blinds e níveis
+    } catch (error) {
+        console.error('Erro ao carregar os níveis de blinds:', error);
+    }
+}
+
 
         // Preenche a tabela de blinds no modal
         function populateBlindsList() {
