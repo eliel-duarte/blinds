@@ -16,6 +16,10 @@ body {
     flex-direction: column;
 }
 
+h2, h3{
+    text-align: center;
+}
+
 .container {
     flex: 1;
     display: flex;
@@ -110,8 +114,8 @@ body {
 
 .sidebar-direita {
     font-size: 1.4rem;
-    flex: 0.7;    background-color: #0099cc;
-    
+    flex: 0.7;    
+    background-color: #0099cc;    
     text-align: center;
     border: 3px solid white;
     border-left: 0;
@@ -167,7 +171,7 @@ body {
 /* Animação para rolar a lista de prêmios */
 @keyframes scroll {
     0% {
-        transform: translateY(50%); /* Começa abaixo do container */
+        transform: translateY(75%); /* Começa abaixo do container */
     }
     100% {
         transform: translateY(-100%); /* Vai até sair completamente acima do container */
@@ -204,7 +208,7 @@ footer {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #333;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -256,16 +260,6 @@ footer {
     width: 100%;
 }
 
-.sidebar form button {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
-
-.sidebar form button:hover {
-    background-color: #45a049;
-}
-
 /* Quando a barra lateral está ativa (aberta) */
 .sidebar.active {
     width: 30%;
@@ -288,4 +282,157 @@ input[type="text"] {
     border-radius: 5px;
     box-sizing: border-box;
 }
+
+.dialog {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Certifique-se de que esteja acima de outros conteúdos */
+}
+
+.dialog-content {
+    background-color: white;
+    color: red;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.dialog-content p{
+    padding: 10px;
+}
+
+
+        /* Estilização do modal (popup) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%; /* Definindo a largura do modal */
+            height: 80%; /* Limita a altura a 80% da tela */            
+            position: relative;
+        }
+
+        .blinds-list{
+            overflow-y: auto; /* Adiciona barra de rolagem se necessário */
+            width: 100%; /* Definindo a largura do modal */
+            height: 90%; /* Limita a altura a 80% da tela */             
+            position: relative;
+            border: 1px solid white;
+        }
+
+        /* Botão "X" para fechar o modal */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;  /* Aumenta o tamanho da fonte para torná-lo mais visível */
+            font-weight: bold;  /* Negrito para destacar */
+            color: #000;  /* Cor preta para o "X" */
+            cursor: pointer;  /* Adiciona um ponteiro de cursor ao passar o mouse */
+        }
+
+        .close:hover {
+            color: red;  /* Altera a cor do "X" para vermelho ao passar o mouse */
+        }
+
+
+        /* Estilização da tabela de blinds */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            color: black;
+        }
+        
+        /* Estilização dos botões Salvar e Cancelar */
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        
+        .botao-azul {
+            background-color:rgb(66, 133, 244) ;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .botao-azul:hover {
+            background-color:#6cace4 ;
+        }
+        
+        .botao-verde {
+            background-color:rgb(52, 168, 83) ;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .botao-verde:hover {
+            background-color: #5BBE5A ;        
+        }
+
+        .botao-amarelo {
+            background-color:rgb(251, 188, 5) ;
+            color: black; /* Para contraste */
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .botao-amarelo:hover {
+            background-color: #F3E30B ;        
+        }
+
+        .botao-vermelho {
+            background-color:rgb(234, 67, 53) ;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .botao-vermelho:hover {
+            background-color: #FF3C30 ;        
+        }
 
