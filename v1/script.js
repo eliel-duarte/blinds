@@ -88,12 +88,27 @@ if (localStorage.getItem('currentLevel')) {
 }
 if (localStorage.getItem('timeLeft')) {
     timeLeft = parseInt(localStorage.getItem('timeLeft'));
+}else{
+    timeLeft = 900;
 }
 if (localStorage.getItem('isPaused')) {
     isPaused = localStorage.getItem('isPaused') === 'true';
 }
 if (localStorage.getItem('blindPre')) {
     blindPre = parseInt(localStorage.getItem('blindPre'));
+}else{
+    blindPre = 900;
+}
+if (localStorage.getItem('blindPos')) {
+    blindPos = parseInt(localStorage.getItem('blindPos'));
+}else{
+    blindPos = 900;
+}
+if (!localStorage.getItem('tournamentName')) {    
+    localStorage.setItem('tournamentName') = "Torneio";
+}
+if (!localStorage.getItem('tardio')) {    
+    localStorage.setItem('tardio') = 8;
 }
 
 
