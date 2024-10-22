@@ -1,7 +1,7 @@
         // Previne o menu de contexto padrão e exibe uma mensagem
         window.addEventListener('contextmenu', function (e) {
-            //e.preventDefault(); // Evita que o menu de contexto apareça
-            //alert(' bad beat! isso não é permitido :('); // Exibe a mensagem personalizada
+            e.preventDefault(); // Evita que o menu de contexto apareça
+            alert(' bad beat! isso não é permitido :('); // Exibe a mensagem personalizada
         });
 
 // Adicione os caminhos dos arquivos de som
