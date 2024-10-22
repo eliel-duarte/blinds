@@ -60,16 +60,6 @@ const soundMudarBlind = new Audio('mudar_blind.mp3');
                 updateTimerDisplay(); // Exibe o tempo inicial
                 updateDisplays(); // Exibe o nível, blinds e ante iniciais
         
-                // Atualiza o estado do botão de pausar
-                if (isPaused) {
-                    pauseButtonIcon.classList.remove('fa-pause');
-                    pauseButtonIcon.classList.add('fa-play');
-                } else {
-                    pauseButtonIcon.classList.remove('fa-play');
-                    pauseButtonIcon.classList.add('fa-pause');
-                    startTimer(); // Inicia o timer se não estiver pausado
-                }
-        
             } catch (error) {
                 console.error('Erro ao carregar os níveis de blinds:', error);
             }
@@ -187,24 +177,28 @@ function previousLevel() {
 function togglePause() {
     isPaused = !isPaused;
 
-    // Muda o ícone dependendo do estado
-    if (isPaused) {
-        pauseButtonIcon.classList.remove('fa-pause');
-        pauseButtonIcon.classList.add('fa-play');
-        document.body.classList.add('paused'); // Adiciona a classe paused para fundo vermelho
-
-    } else {
-        pauseButtonIcon.classList.remove('fa-play');
-        pauseButtonIcon.classList.add('fa-pause');
-        document.body.classList.remove('paused'); // Remove a classe paused quando continuar
-
-        startTimer(); // Inicia o timer se não estiver pausado
-    }
+    atualizaPause();
 
     AtualizaCores();  
 
     // Armazena o estado de pausa no localStorage
     localStorage.setItem('isPaused', isPaused);
+}
+
+function atualizaPause(){
+        // Muda o ícone dependendo do estado
+        if (isPaused) {
+            pauseButtonIcon.classList.remove('fa-pause');
+            pauseButtonIcon.classList.add('fa-play');
+            document.body.classList.add('paused'); // Adiciona a classe paused para fundo vermelho
+    
+        } else {
+            pauseButtonIcon.classList.remove('fa-play');
+            pauseButtonIcon.classList.add('fa-pause');
+            document.body.classList.remove('paused'); // Remove a classe paused quando continuar
+    
+            startTimer(); // Inicia o timer se não estiver pausado
+        }
 }
 
 // Reinicia apenas o cronômetro
@@ -246,7 +240,7 @@ function updateTimerDisplay() {
 
     // Atualiza Cores
     AtualizaCores();
-
+    atualizaPause();
 }
 
 // Atualiza as exibições de nível, blinds e ante
