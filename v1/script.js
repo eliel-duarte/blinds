@@ -332,6 +332,8 @@ function saveSettings() {
 
     //console.log(tardio);
     toggleMenu();
+
+    updateTimerDisplay();
 }
 
     function resetAndSave() {
