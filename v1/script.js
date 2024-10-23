@@ -1,13 +1,32 @@
-        // Previne o menu de contexto padrão e exibe uma mensagem
-        window.addEventListener('contextmenu', function (e) {
-            e.preventDefault(); // Evita que o menu de contexto apareça
-            alert(' bad beat! isso não é permitido :('); // Exibe a mensagem personalizada
-        });
+
 
 // Adicione os caminhos dos arquivos de som
 const sound1m = new Audio('falta_1m.mp3');
 const sound5s = new Audio('falta_5s.mp3');
 const soundMudarBlind = new Audio('mudar_blind.mp3');
+
+// Referências aos elementos DOM
+const timerDisplay = document.querySelector('.timer');
+const levelDisplay = document.querySelector('.level');
+const blindsDisplay = document.querySelector('.blinds');
+const anteDisplay = document.querySelector('.ante');
+const nextBlindsDisplay = document.querySelector('.next-blinds');
+const nextAnteDisplay = document.querySelector('.next-ante');
+const pauseButtonIcon = document.querySelector('#pausar i'); // Referência ao ícone do botão de pausar
+const nivel = document.querySelector('#nivel');
+
+let currentLevel = 0;
+let timerInterval;
+let timeLeft = 900;
+let blindPre = 900;
+let blindPos = 900;
+let isPaused = true; // Inicia em estado pausado
+
+        // Previne o menu de contexto padrão e exibe uma mensagem
+        window.addEventListener('contextmenu', function (e) {
+            //e.preventDefault(); // Evita que o menu de contexto apareça
+            //alert(' bad beat! isso não é permitido :('); // Exibe a mensagem personalizada
+        });
 
 // desativar função enter no formulário
 document.querySelector('form').addEventListener('submit', function(event) {
@@ -15,9 +34,9 @@ document.querySelector('form').addEventListener('submit', function(event) {
 });
 
 
-            // Verifica o número de elementos da lista de prêmios
-            let prizeList = document.querySelector('.prize-list');
-            let prizeItems = prizeList.querySelectorAll('li');
+        // Verifica o número de elementos da lista de prêmios
+        let prizeList = document.querySelector('.prize-list');
+        let prizeItems = prizeList.querySelectorAll('li');
 
         // Inicializa a variável para os níveis de blinds
         let blindsLevels = [];
@@ -79,10 +98,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
         AtualizaBuyns();//
         
 
-let currentLevel = 0;
-let timerInterval;
-let timeLeft = 900;
-let isPaused = true; // Inicia em estado pausado
+
 
 // Verifica se existem dados no localStorage
 if (localStorage.getItem('blindsLevels')) {
@@ -94,7 +110,7 @@ if (localStorage.getItem('currentLevel')) {
 if (localStorage.getItem('timeLeft')) {
     timeLeft = parseInt(localStorage.getItem('timeLeft'));
 }else{
-    timeLeft = 900;
+    localStorage.setItem('timeLeft', timeLeft)
 }
 if (localStorage.getItem('isPaused')) {
     isPaused = localStorage.getItem('isPaused') === 'true';
@@ -102,31 +118,24 @@ if (localStorage.getItem('isPaused')) {
 if (localStorage.getItem('blindPre')) {
     blindPre = parseInt(localStorage.getItem('blindPre'));
 }else{
-    localStorage.setItem('blindPre') = 900;
+    localStorage.setItem('blindPre', blindPre)
 }
 if (localStorage.getItem('blindPos')) {
     blindPos = parseInt(localStorage.getItem('blindPos'));
 }else{
-    localStorage.setItem('blindPos') = 900;
+    localStorage.setItem('blindPos', blindPos)
 }
 if (!localStorage.getItem('tournamentName')) {    
-    localStorage.setItem('tournamentName') = "Torneio";
+    localStorage.setItem('tournamentName', "Torneio");
 }
 if (!localStorage.getItem('tardio')) {    
-    localStorage.setItem('tardio') = 8;
+    localStorage.setItem('tardio', 8);
 }
 
 
-// Referências aos elementos DOM
-const timerDisplay = document.querySelector('.timer');
-const levelDisplay = document.querySelector('.level');
-const blindsDisplay = document.querySelector('.blinds');
-const anteDisplay = document.querySelector('.ante');
-const nextBlindsDisplay = document.querySelector('.next-blinds');
-const nextAnteDisplay = document.querySelector('.next-ante');
-const pauseButtonIcon = document.querySelector('#pausar i'); // Referência ao ícone do botão de pausar
 
-const nivel = document.querySelector('#nivel');
+
+
 
 // Inicia o timer
 function startTimer() {
@@ -228,7 +237,7 @@ function resetTimer() {
     const tardio = parseInt(localStorage.getItem('tardio'), 10);
 
     // Verifica se o nível atual é maior ou igual ao nível de registro tardio
-    if (currentNivel >= tardio) {        
+    if (currentNivel > tardio) {        
         // Converte o valor de 'blindPos' em inteiro ao atribuir para 'timeLeft'
         timeLeft = parseInt(localStorage.getItem('blindPos'), 10);
     } else {        
@@ -307,12 +316,15 @@ function toggleMenu() {
     } else {
         sidebar.classList.add('active');
     }
+}
 
-    // carregar formulário
+// Carregar fomulario
+function carregarFormulario(){
+
     document.getElementById('tournament-name').value = localStorage.getItem('tournamentName');
     document.getElementById('blind-time-pre').value = secondsToHHMMSS(localStorage.getItem('blindPre'));
     document.getElementById('blind-time-pos').value = secondsToHHMMSS(localStorage.getItem('blindPos'));
-    document.getElementById('tardio').value = localStorage.getItem('tardio');
+    document.getElementById('tardio').value = localStorage.getItem('tardio');    
 }
 
 // Função de salvar as configurações
@@ -713,9 +725,11 @@ async function loadBlinds() {
         }
         
         // Carregar prêmios ao iniciar
-        window.onload = function() {
+        window.onload = function() {           
             loadPrizes(); // Carrega os prêmios do localStorage ou da lista padrão
-            checkPrizeListLength(); // Verifica o comprimento da lista de prêmios e aplica/remova a classe 'scroll'            
+            loadBlindsLevels(); // carregar lista de blinds   
+            carregarFormulario();  
+                 
         };
 
 
