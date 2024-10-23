@@ -9,6 +9,11 @@ const sound1m = new Audio('falta_1m.mp3');
 const sound5s = new Audio('falta_5s.mp3');
 const soundMudarBlind = new Audio('mudar_blind.mp3');
 
+// desativar função enter no formulário
+document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault();
+});
+
 
             // Verifica o número de elementos da lista de prêmios
             let prizeList = document.querySelector('.prize-list');
@@ -97,12 +102,12 @@ if (localStorage.getItem('isPaused')) {
 if (localStorage.getItem('blindPre')) {
     blindPre = parseInt(localStorage.getItem('blindPre'));
 }else{
-    blindPre = 900;
+    localStorage.setItem('blindPre') = 900;
 }
 if (localStorage.getItem('blindPos')) {
     blindPos = parseInt(localStorage.getItem('blindPos'));
 }else{
-    blindPos = 900;
+    localStorage.setItem('blindPos') = 900;
 }
 if (!localStorage.getItem('tournamentName')) {    
     localStorage.setItem('tournamentName') = "Torneio";
