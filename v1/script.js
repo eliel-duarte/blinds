@@ -268,11 +268,15 @@ function updateDisplays() {
     nextAnteDisplay.textContent = blindsLevels[currentLevel + 1] ? `Ante: ${blindsLevels[currentLevel + 1].ante}` : 'N/A';  
 }
 
+function isString(value) {
+    return typeof value === 'string';
+}
+
 function AtualizaCores(){
     var bigblind = blindsLevels[currentLevel].bb;
 
-    if (typeof bigblind === 'string' && bigblind.toLowerCase() === 'intervalo') {
-        document.querySelector('.meio').style.backgroundColor = "rgb(52, 168, 83)";            
+    if (bigblind % 1 != 0) {
+        document.querySelector('.meio').style.backgroundColor = "rgb(52, 168, 83)";      
     }else if (isPaused) {
         document.querySelector('.meio').style.backgroundColor = "rgb(234, 67, 53)";
     }else{
