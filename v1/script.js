@@ -162,7 +162,14 @@ function startTimer() {
 
             // Quando o tempo acabar, avança para o próximo nível
             if (timeLeft <= 0) {
-                nextLevel();
+                console.log(currentLevel+' '+(blindsLevels.length - 1));
+                // se for o ultimo nivel
+                if (currentLevel == blindsLevels.length - 1){
+                    togglePause();
+                    timerDisplay.textContent = "FIM";
+                }else{
+                    nextLevel();
+                }
             }
         }
 
