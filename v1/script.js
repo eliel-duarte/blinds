@@ -1,5 +1,3 @@
-
-
 // Adicione os caminhos dos arquivos de som
 const sound1m = new Audio('falta_1m.mp3');
 const sound5s = new Audio('falta_5s.mp3');
@@ -131,6 +129,23 @@ if (!localStorage.getItem('tournamentName')) {
 if (!localStorage.getItem('tardio')) {    
     localStorage.setItem('tardio', 8);
 }
+if (!localStorage.getItem('fichasb')) {    
+    localStorage.setItem('fichasb', 10000);
+}
+if (!localStorage.getItem('fichasr')) {    
+    localStorage.setItem('fichasr', 10000);
+}
+if (!localStorage.getItem('fichasd')) {    
+    localStorage.setItem('fichasd', 20000);
+}
+if (!localStorage.getItem('fichasa')) {    
+    localStorage.setItem('fichasa', 30000);
+}
+if (!localStorage.getItem('fichas')) {    
+    localStorage.setItem('fichas', 0);
+}
+
+
 
 
 
@@ -155,6 +170,20 @@ function startTimer() {
         localStorage.setItem('timeLeft', timeLeft);
     }, 1000);
 }
+
+// Atualiza a barra de progresso conforme o tempo passa
+function AtualizaBarra() {
+    let sliderValue = (timeLeft / localStorage.getItem('blindPre') * 600);
+    document.getElementById('time-slider').value = sliderValue;
+    //console.log(parseInt(sliderValue));
+}
+
+// Evento para quando o usuário arrasta o slider
+document.getElementById('time-slider').addEventListener('input', (event) => {
+    const newTimePercentage = event.target.value / 600;
+    timeLeft = parseInt(localStorage.getItem('blindPre') * newTimePercentage); // Ajusta o tempo baseado na posição da barra
+    updateTimerDisplay();
+});
 
 // Função para verificar e tocar sons apropriados
 function checkSounds() {
@@ -264,12 +293,15 @@ function updateTimerDisplay() {
 
     // Atualiza nome
     document.querySelector('.title').textContent = localStorage.getItem('tournamentName');
-    // Atualiza Registro tardio
-    document.querySelector('.info-tardio').textContent = localStorage.getItem('tardio');    
+    // Atualiza Registro tardio e fichas
+    document.querySelector('.info-tardio').textContent = localStorage.getItem('tardio');
+    
 
     // Atualiza Cores
     AtualizaCores();
     atualizaPause();
+    AtualizaBarra();
+    AtualizaBuyns();
 }
 
 // Atualiza as exibições de nível, blinds e ante
@@ -324,7 +356,12 @@ function carregarFormulario(){
     document.getElementById('tournament-name').value = localStorage.getItem('tournamentName');
     document.getElementById('blind-time-pre').value = secondsToHHMMSS(localStorage.getItem('blindPre'));
     document.getElementById('blind-time-pos').value = secondsToHHMMSS(localStorage.getItem('blindPos'));
-    document.getElementById('tardio').value = localStorage.getItem('tardio');    
+    document.getElementById('tardio').value = localStorage.getItem('tardio');   
+    
+    document.getElementById('fichasb').value = parseFloat(localStorage.getItem('fichasb'));
+    document.getElementById('fichasr').value = parseFloat(localStorage.getItem('fichasr'));
+    document.getElementById('fichasd').value = parseFloat(localStorage.getItem('fichasd'));
+    document.getElementById('fichasa').value = parseFloat(localStorage.getItem('fichasa'));
 }
 
 // Função de salvar as configurações
@@ -338,6 +375,10 @@ function saveSettings() {
     localStorage.setItem('blindPre', blindPre);
     localStorage.setItem('blindPos', blindPos);
     localStorage.setItem('tardio', tardio);
+    localStorage.setItem('fichasb', document.getElementById('fichasb').value);
+    localStorage.setItem('fichasr', document.getElementById('fichasr').value);
+    localStorage.setItem('fichasd', document.getElementById('fichasd').value);
+    localStorage.setItem('fichasa', document.getElementById('fichasa').value);
 
     // salvar alterações nos blinds
     saveBlinds();
@@ -355,13 +396,6 @@ function saveSettings() {
     
         // Aguarda a resposta do usuário
         document.getElementById('confirm-yes').onclick = function() {
-    
-            // Salvar as configurações
-            saveSettings();
-
-            // Reseta o nível para -1 e avança para o primeiro nível
-            currentLevel = -1;
-            nextLevel();
 
             // Zera todas as variaveis de controle do torneio
             localStorage.setItem('buyn', 0);
@@ -369,7 +403,17 @@ function saveSettings() {
             localStorage.setItem('duplo', 0);
             localStorage.setItem('addon', 0);
             localStorage.setItem('prizeList', "");
-            localStorage.setItem('premio', 0);           
+            localStorage.setItem('premio', 0); 
+            localStorage.setItem('fichas', 0);
+            
+            // Salvar as configurações
+            saveSettings();
+
+            // Reseta o nível para -1 e avança para o primeiro nível
+            currentLevel = -1;
+            nextLevel();  
+            
+            AtualizaBuyns();
 
             // pausa se não tiver pausado
             if (!isPaused) {
@@ -549,15 +593,21 @@ async function loadBlinds() {
                 var buyn = localStorage.getItem('buyn');
             }else{
                 var buyn = 0;
-            }     
+            }
             
-            // atribui
-            buyn = parseInt(buyn) + x;            
-            
-            // salva no localstorage
-            localStorage.setItem('buyn', buyn);
+            if ( (x === 1) || (buyn > 0)){  
+                // atribui
+                buyn = parseInt(buyn) + x;          
 
-            AtualizaBuyns();
+                localStorage.setItem('fichasb', document.getElementById('fichasb').value);
+                valor = localStorage.getItem('fichasb');
+                atribuirFichas(valor, x);
+                
+                // salva no localstorage
+                localStorage.setItem('buyn', buyn);
+
+                AtualizaBuyns();
+            }
         }          
 
         function Rebuy(x){
@@ -566,15 +616,22 @@ async function loadBlinds() {
                 var rebuy = localStorage.getItem('rebuy');
             }else{
                 var rebuy = 0;
-            }     
+            }   
             
-            // atribui
-            rebuy = parseInt(rebuy) + x;            
-            
-            // salva no localstorage
-            localStorage.setItem('rebuy', rebuy);
+            if ( (x === 1) || (rebuy > 0)){              
+                
+                // atribui
+                rebuy = parseInt(rebuy) + x; 
 
-            AtualizaBuyns();
+                localStorage.setItem('fichasr', document.getElementById('fichasr').value);
+                valor = localStorage.getItem('fichasr');
+                atribuirFichas(valor, x);                       
+                
+                // salva no localstorage
+                localStorage.setItem('rebuy', rebuy);
+
+                AtualizaBuyns();
+            }
         } 
 
         function Duplo(x){
@@ -585,13 +642,20 @@ async function loadBlinds() {
                 var duplo = 0;
             }     
             
-            // atribui
-            duplo = parseInt(duplo) + x;            
-            
-            // salva no localstorage
-            localStorage.setItem('duplo', duplo);
+            // verificar se adicionar ou addon maior que zero
+            if ( (x === 1) || (duplo > 0)){            
+                // atribui
+                duplo = parseInt(duplo) + x; 
+                
+                localStorage.setItem('fichasd', document.getElementById('fichasd').value);
+                valor = localStorage.getItem('fichasd');
+                atribuirFichas(valor, x);            
+                
+                // salva no localstorage
+                localStorage.setItem('duplo', duplo);
 
-            AtualizaBuyns();
+                AtualizaBuyns();
+            }
         }      
         
         function Addon(x){
@@ -602,20 +666,44 @@ async function loadBlinds() {
                 var addon = 0;
             }     
             
-            // atribui
-            addon = parseInt(addon) + x;           
-            
-            // salva no localstorage
-            localStorage.setItem('addon', addon);
+            // verificar se adicionar ou addon maior que zero
+            if ( (x === 1) || (addon > 0)){
 
-            AtualizaBuyns();
-        }   
+                // atribui
+                addon = parseInt(addon) + x; 
+                
+                localStorage.setItem('fichasa', document.getElementById('fichasa').value);
+                valor = localStorage.getItem('fichasa');
+                atribuirFichas(valor, x);            
+                
+                // salva no localstorage
+                localStorage.setItem('addon', addon);
+
+                AtualizaBuyns();
+            }
+        } 
+        
+        function atribuirFichas(valor, vezes){
+            total = parseInt(localStorage.getItem('fichas')) + (valor * vezes);
+            console.log(total);
+            localStorage.setItem('fichas', total);
+        }
+
+        document.querySelectorAll('.inteiro').forEach(function(element) {
+            element.addEventListener('input', function (e) {
+                // Remove qualquer ponto ou vírgula que o usuário tente inserir
+                this.value = this.value.replace(/[.,]/g, '');
+            });
+        });        
         
         function AtualizaBuyns(){
             document.getElementById('entradas').innerHTML = localStorage.getItem('buyn');
             document.getElementById('rebuys').innerHTML = localStorage.getItem('rebuy');
             document.getElementById('duplos').innerHTML = localStorage.getItem('duplo');
             document.getElementById('addons').innerHTML = localStorage.getItem('addon');
+            var fichas = parseFloat(localStorage.getItem('fichas'));
+            document.getElementById('fichas').innerHTML = fichas.toLocaleString('pt-BR');
+
         }
            
 
@@ -723,6 +811,8 @@ async function loadBlinds() {
                 savePrizes(); // Atualiza a exibição com a lista carregada
             }
         }
+
+
         
         // Carregar prêmios ao iniciar
         window.onload = function() {           
