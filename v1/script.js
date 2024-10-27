@@ -129,6 +129,9 @@ if (!localStorage.getItem('tournamentName')) {
 if (!localStorage.getItem('tardio')) {    
     localStorage.setItem('tardio', 8);
 }
+if (!localStorage.getItem('fichast')) {    
+    localStorage.setItem('fichast', 1000);
+}
 if (!localStorage.getItem('fichasb')) {    
     localStorage.setItem('fichasb', 10000);
 }
@@ -365,6 +368,7 @@ function carregarFormulario(){
     document.getElementById('blind-time-pos').value = secondsToHHMMSS(localStorage.getItem('blindPos'));
     document.getElementById('tardio').value = localStorage.getItem('tardio');   
     
+    document.getElementById('fichast').value = parseFloat(localStorage.getItem('fichast'));
     document.getElementById('fichasb').value = parseFloat(localStorage.getItem('fichasb'));
     document.getElementById('fichasr').value = parseFloat(localStorage.getItem('fichasr'));
     document.getElementById('fichasd').value = parseFloat(localStorage.getItem('fichasd'));
@@ -382,6 +386,7 @@ function saveSettings() {
     localStorage.setItem('blindPre', blindPre);
     localStorage.setItem('blindPos', blindPos);
     localStorage.setItem('tardio', tardio);
+    localStorage.setItem('fichast', document.getElementById('fichast').value);
     localStorage.setItem('fichasb', document.getElementById('fichasb').value);
     localStorage.setItem('fichasr', document.getElementById('fichasr').value);
     localStorage.setItem('fichasd', document.getElementById('fichasd').value);
@@ -405,6 +410,7 @@ function saveSettings() {
         document.getElementById('confirm-yes').onclick = function() {
 
             // Zera todas as variaveis de controle do torneio
+            localStorage.setItem('bonus', 0);
             localStorage.setItem('buyn', 0);
             localStorage.setItem('rebuy', 0);
             localStorage.setItem('duplo', 0);
@@ -594,6 +600,29 @@ async function loadBlinds() {
             closeBlindsPopup(); // Fecha o popup após salvar
         }
 
+        function Bonus(x){
+            // se ja existe buyn no localstorage
+            if (localStorage.getItem('bonus')) {
+                var bonus = localStorage.getItem('bonus');
+            }else{
+                var bonus = 0;
+            }
+            
+            if ( (x === 1) || (bonus > 0)){  
+                // atribui
+                bonus = parseInt(bonus) + x;          
+
+                localStorage.setItem('fichast', document.getElementById('fichast').value);
+                valor = localStorage.getItem('fichast');
+                atribuirFichas(valor, x);
+                
+                // salva no localstorage
+                localStorage.setItem('bonus', bonus);
+
+                AtualizaBuyns();
+            }
+        }          
+
         function Buyn(x){
             // se ja existe buyn no localstorage
             if (localStorage.getItem('buyn')) {
@@ -704,6 +733,7 @@ async function loadBlinds() {
         });        
         
         function AtualizaBuyns(){
+            document.getElementById('bonus').innerHTML = localStorage.getItem('bonus');
             document.getElementById('entradas').innerHTML = localStorage.getItem('buyn');
             document.getElementById('rebuys').innerHTML = localStorage.getItem('rebuy');
             document.getElementById('duplos').innerHTML = localStorage.getItem('duplo');

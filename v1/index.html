@@ -95,16 +95,12 @@
     
             <!-- Botões para manipular informações -->
             <table>
-                <thead>
-                    <tr>
-                        <th>Buy-in</th>
-                        <th>Rebuy</th>
-                        <th>Duplo</th>
-                        <th>Add-on</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
+                        <td>
+                            <button class="botao-verde" type="button" onclick="Bonus(1)"><i class="fa-solid fa-thumbs-up"></i> <i class="fa-solid fa-plus"></i></button>
+                            <button class="botao-vermelho" type="button" onclick="Bonus(-1)"><i class="fa-solid fa-thumbs-up"></i> <i class="fa-solid fa-minus"></i></button>
+                        </td>                        
                         <td>
                             <button class="botao-verde" type="button" onclick="Buyn(1)"><i class="fa-solid fa-b"></i> <i class="fa-solid fa-plus"></i></button>
                             <button class="botao-vermelho" type="button" onclick="Buyn(-1)"><i class="fa-solid fa-b"></i> <i class="fa-solid fa-minus"></i></button>
@@ -125,14 +121,19 @@
                 </tbody>
                 <thead>
                     <tr>
+                        <th>Fichas Bônus</th>
                         <th>Fichas Buy-in</th>
                         <th>Fichas Rebuy</th>
                         <th>Fichas Duplo</th>
                         <th>Fichas Add-on</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td>
+                            <input class="inteiro" type="number" name="" id="fichast">
+                        </td>
                         <td>
                             <input class="inteiro" type="number" name="" id="fichasb">
                         </td>
@@ -198,7 +199,7 @@
         <div class="sidebar-direita">
             <div class="info-item">Nível <br /><div id="nivel">1</div></div>
             <div class="info-item">Reg Tardio <br /><div class="info-tardio">1</div></div>
-            <div class="info-item">Entradas<br><span id="entradas">0</span></div>
+            <div class="info-item">Entradas / Bônus<br><span id="entradas">0</span> / <span id="bonus">0</span></div>
             <div class="info-item">Rebuys / Duplos<br><span id="rebuys">0</span> / <span id="duplos">0</span></div>
             <div class="info-item">Add-ons<br><span id="addons">0</span></div>
             <div class="info-item">Total de Fichas<br><span id="fichas">0</span></div>

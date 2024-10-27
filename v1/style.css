@@ -397,6 +397,16 @@ input[type="text"] {
         .inteiro{
             text-align: center;
         }
+
+        .timeChipe {
+            display: flex;
+            align-items: center; /* Alinha verticalmente */
+            gap: 1px; /* Espaçamento entre os campos */
+        }  
+        
+        #timeChipe{
+            width: 50px;
+        }
         /* Estilização dos botões Salvar e Cancelar */
         .modal-footer {
             display: flex;
