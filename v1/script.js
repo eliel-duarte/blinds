@@ -22,8 +22,8 @@ let isPaused = true; // Inicia em estado pausado
 
         // Previne o menu de contexto padrão e exibe uma mensagem
         window.addEventListener('contextmenu', function (e) {
-            //e.preventDefault(); // Evita que o menu de contexto apareça
-            //alert(' bad beat! isso não é permitido :('); // Exibe a mensagem personalizada
+            e.preventDefault(); // Evita que o menu de contexto apareça
+            alert(' bad beat! isso não é permitido :('); // Exibe a mensagem personalizada
         });
 
 // desativar função enter no formulário
@@ -165,7 +165,7 @@ function startTimer() {
 
             // Quando o tempo acabar, avança para o próximo nível
             if (timeLeft <= 0) {
-                console.log(currentLevel+' '+(blindsLevels.length - 1));
+                //console.log(currentLevel+' '+(blindsLevels.length - 1));
                 // se for o ultimo nivel
                 if (currentLevel == blindsLevels.length - 1){
                     togglePause();
@@ -594,7 +594,7 @@ async function loadBlinds() {
 
             // Aqui você deve implementar a lógica para enviar o JSON para o servidor
             // Por exemplo, usando fetch para enviar um POST para um endpoint que salva o arquivo
-            console.log("Blinds salvos:", updatedJson); // Para fins de depuração
+            //console.log("Blinds salvos:", updatedJson); // Para fins de depuração
             //alert('Blinds salvos com sucesso!'); // Mensagem de confirmação
 
             closeBlindsPopup(); // Fecha o popup após salvar
@@ -612,9 +612,8 @@ async function loadBlinds() {
                 // atribui
                 bonus = parseInt(bonus) + x;          
 
+                // atualiza o fichast no localstorage
                 localStorage.setItem('fichast', document.getElementById('fichast').value);
-                valor = localStorage.getItem('fichast');
-                atribuirFichas(valor, x);
                 
                 // salva no localstorage
                 localStorage.setItem('bonus', bonus);
@@ -636,8 +635,6 @@ async function loadBlinds() {
                 buyn = parseInt(buyn) + x;          
 
                 localStorage.setItem('fichasb', document.getElementById('fichasb').value);
-                valor = localStorage.getItem('fichasb');
-                atribuirFichas(valor, x);
                 
                 // salva no localstorage
                 localStorage.setItem('buyn', buyn);
@@ -659,9 +656,7 @@ async function loadBlinds() {
                 // atribui
                 rebuy = parseInt(rebuy) + x; 
 
-                localStorage.setItem('fichasr', document.getElementById('fichasr').value);
-                valor = localStorage.getItem('fichasr');
-                atribuirFichas(valor, x);                       
+                localStorage.setItem('fichasr', document.getElementById('fichasr').value);                       
                 
                 // salva no localstorage
                 localStorage.setItem('rebuy', rebuy);
@@ -683,9 +678,7 @@ async function loadBlinds() {
                 // atribui
                 duplo = parseInt(duplo) + x; 
                 
-                localStorage.setItem('fichasd', document.getElementById('fichasd').value);
-                valor = localStorage.getItem('fichasd');
-                atribuirFichas(valor, x);            
+                localStorage.setItem('fichasd', document.getElementById('fichasd').value);            
                 
                 // salva no localstorage
                 localStorage.setItem('duplo', duplo);
@@ -708,9 +701,7 @@ async function loadBlinds() {
                 // atribui
                 addon = parseInt(addon) + x; 
                 
-                localStorage.setItem('fichasa', document.getElementById('fichasa').value);
-                valor = localStorage.getItem('fichasa');
-                atribuirFichas(valor, x);            
+                localStorage.setItem('fichasa', document.getElementById('fichasa').value);          
                 
                 // salva no localstorage
                 localStorage.setItem('addon', addon);
@@ -718,13 +709,6 @@ async function loadBlinds() {
                 AtualizaBuyns();
             }
         } 
-        
-        function atribuirFichas(valor, vezes){
-            total = parseInt(localStorage.getItem('fichas')) + (valor * vezes);
-            console.log(total);
-            localStorage.setItem('fichas', total);
-        }
-
         document.querySelectorAll('.inteiro').forEach(function(element) {
             element.addEventListener('input', function (e) {
                 // Remove qualquer ponto ou vírgula que o usuário tente inserir
@@ -738,9 +722,18 @@ async function loadBlinds() {
             document.getElementById('rebuys').innerHTML = localStorage.getItem('rebuy');
             document.getElementById('duplos').innerHTML = localStorage.getItem('duplo');
             document.getElementById('addons').innerHTML = localStorage.getItem('addon');
+
+            // calculo de fichas
+            bonus = localStorage.getItem('fichast') * localStorage.getItem('bonus');
+            buyn = localStorage.getItem('fichasb') * localStorage.getItem('buyn');
+            rebuy = localStorage.getItem('fichasr') * localStorage.getItem('rebuy');
+            duplo = localStorage.getItem('fichasd') * localStorage.getItem('duplo');
+            addon = localStorage.getItem('fichasa') * localStorage.getItem('addon');
+
+            localStorage.setItem('fichas', bonus + buyn + rebuy + duplo + addon);
+
             var fichas = parseFloat(localStorage.getItem('fichas'));
             document.getElementById('fichas').innerHTML = fichas.toLocaleString('pt-BR');
-
         }
            
 
@@ -818,10 +811,10 @@ async function loadBlinds() {
             // Se a lista tiver mais de 10 itens, adiciona a classe 'scroll'
             if (prizeItemsx.length > 10) {
                 prizeListx.classList.add('scroll');
-                console.log(prizeItemsx.length);
+                //console.log(prizeItemsx.length);
             }else{
                 prizeListx.classList.remove('scroll');
-                console.log(prizeItemsx.length);
+                //console.log(prizeItemsx.length);
             }            
         
             localStorage.setItem('prizeList', JSON.stringify(prizeList)); // Salva a lista no localStorage
